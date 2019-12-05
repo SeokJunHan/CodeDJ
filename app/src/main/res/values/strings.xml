@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">CodeDJ</string>
+    <string name="pre_activity_title">CODE_DJ</string>
+    <string name="pre_activity_subtitle">익스트림 방탈출 카페</string>
     <string name="title_home">홈</string>
     <string name="title_review">리뷰</string>
     <string name="title_chat">채팅</string>
