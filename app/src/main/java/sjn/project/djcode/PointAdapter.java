@@ -11,11 +11,11 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 
-public class PointAdapter extends ArrayAdapter<HashMap<Integer, Point>> {
-    private HashMap<Integer, Point> items;
+public class PointAdapter extends ArrayAdapter<HashMap<Integer, Points>> {
+    private HashMap<Integer, Points> items;
     Context context;
 
-    public PointAdapter(Context context, int resource, HashMap<Integer, Point> objects){
+    public PointAdapter(Context context, int resource, HashMap<Integer, Points> objects){
         super(context, resource);
         items = objects;
         this.context = context;

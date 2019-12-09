@@ -1,12 +1,12 @@
 package sjn.project.djcode;
 
-public class Point {
+public class Points {
     private int pointImg;
     private String pointName;
     private String address;
     private String pointPrice;
 
-    public Point(int pointImg, String pointName, String address, String pointPrice) {
+    public Points(int pointImg, String pointName, String address, String pointPrice) {
         this.pointImg = pointImg;
         this.pointName = pointName;
         this.address = address;
