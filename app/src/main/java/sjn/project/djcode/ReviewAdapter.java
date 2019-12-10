@@ -29,7 +29,6 @@ public class ReviewAdapter extends ArrayAdapter<HashMap<Integer, Reviews>> {
         TextView title = convertView.findViewById(R.id.titles);
         TextView content = convertView.findViewById(R.id.content);
 
-
         title.setText(items.get(position).getContent());
         content.setText(items.get(position).getTitle());
 
