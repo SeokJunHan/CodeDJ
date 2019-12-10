@@ -1,16 +1,16 @@
-package sjn.project.djcode.ui.dashboard;
+package sjn.project.djcode.ui.review;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class DashboardViewModel extends ViewModel {
+public class ReviewViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public DashboardViewModel() {
+    public ReviewViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+        mText.setValue("This is review fragment");
     }
 
     public LiveData<String> getText() {

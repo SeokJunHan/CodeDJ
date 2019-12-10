@@ -9,13 +9,19 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.HashMap;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 
-public class PointAdapter extends ArrayAdapter<HashMap<Integer, Points>> {
-    private HashMap<Integer, Points> items;
+import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.List;
+
+public class PointAdapter extends ArrayAdapter<HashMap<Integer, Branch>> {
+    private List<Branch> items;
     Context context;
 
-    public PointAdapter(Context context, int resource, HashMap<Integer, Points> objects){
+    public PointAdapter(Context context, int resource, List<Branch> objects){
         super(context, resource);
         items = objects;
         this.context = context;
@@ -30,10 +36,13 @@ public class PointAdapter extends ArrayAdapter<HashMap<Integer, Points>> {
         TextView name = convertView.findViewById(R.id.point_name);
         TextView address = convertView.findViewById(R.id.address);
         TextView price = convertView.findViewById(R.id.price);
-        imageView.setImageResource(items.get(position).getPointImg());
-        name.setText(items.get(position).getPointName());
+        Glide.with(context)
+                .load(items.get(position).getImg())
+                .into(imageView);
+        name.setText(items.get(position).getName());
         address.setText(items.get(position).getAddress());
-        price.setText(items.get(position).getPointPrice());
+        DecimalFormat format = new DecimalFormat("#,###");
+        price.setText(format.format(items.get(position).getPrice()) + " 원 / 2인");
         return convertView;
     }
 }
