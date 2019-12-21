@@ -15,21 +15,10 @@ import sjn.project.djcode.R;
 
 public class ChattingFragment extends Fragment {
 
-    private ChattingViewModel chattingViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        chattingViewModel =
-                ViewModelProviders.of(this).get(ChattingViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_chatting, container, false);
-        final TextView textView = root.findViewById(R.id.text_chatting);
-        chattingViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
 
-        });
+        View root = inflater.inflate(R.layout.fragment_chatting, container, false);
         return root;
     }
 }

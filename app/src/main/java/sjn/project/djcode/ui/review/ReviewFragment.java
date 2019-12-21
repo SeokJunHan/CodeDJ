@@ -15,20 +15,11 @@ import sjn.project.djcode.R;
 
 public class ReviewFragment extends Fragment {
 
-    private ReviewViewModel reviewViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        reviewViewModel =
-                ViewModelProviders.of(this).get(ReviewViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_review, container, false);
-        final TextView textView = root.findViewById(R.id.text_review);
-        reviewViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
         return root;
     }
 }

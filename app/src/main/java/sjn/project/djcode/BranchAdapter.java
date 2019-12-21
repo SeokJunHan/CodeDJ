@@ -17,11 +17,11 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 
-public class PointAdapter extends ArrayAdapter<HashMap<Integer, Branch>> {
+public class BranchAdapter extends ArrayAdapter<HashMap<Integer, Branch>> {
     private List<Branch> items;
     Context context;
 
-    public PointAdapter(Context context, int resource, List<Branch> objects){
+    public BranchAdapter(Context context, int resource, List<Branch> objects){
         super(context, resource);
         items = objects;
         this.context = context;

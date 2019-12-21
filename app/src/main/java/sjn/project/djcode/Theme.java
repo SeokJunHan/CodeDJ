@@ -4,15 +4,19 @@ public class Theme {
     private String img;
     private String name;
     private String genre;
-    private int difficulty;
-    private String num_people;
+    private float difficulty;
+    private String desc;
 
-    public Theme(String img, String name, String genre, int difficulty, String num_people) {
+    public Theme() {
+
+    }
+
+    public Theme(String img, String name, String genre, float difficulty, String desc) {
         this.img = img;
         this.name = name;
         this.genre = genre;
         this.difficulty = difficulty;
-        this.num_people = num_people;
+        this.desc = desc;
     }
 
     public String getImg() {
@@ -39,7 +43,7 @@ public class Theme {
         this.genre = genre;
     }
 
-    public int getDifficulty() {
+    public float getDifficulty() {
         return difficulty;
     }
 
@@ -47,11 +51,11 @@ public class Theme {
         this.difficulty = difficulty;
     }
 
-    public String getNum_people() {
-        return num_people;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setNum_people(String num_people) {
-        this.num_people = num_people;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 }

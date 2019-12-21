@@ -8,13 +8,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.HashMap;
+import com.bumptech.glide.Glide;
 
-public class ThemeAdapter extends ArrayAdapter<HashMap<Integer, Themes>> {
-    private HashMap<Integer, Themes> items;
+import java.util.HashMap;
+import java.util.List;
+
+public class ThemeAdapter extends ArrayAdapter<HashMap<Integer, Theme>> {
+    private List<Theme> items;
     Context context;
 
-    public ThemeAdapter(Context context, int resource, HashMap<Integer, Themes> objects){
+    public ThemeAdapter(Context context, int resource, List<Theme> objects){
         super(context, resource);
         items = objects;
         this.context = context;
@@ -28,14 +31,14 @@ public class ThemeAdapter extends ArrayAdapter<HashMap<Integer, Themes>> {
         ImageView imageView = convertView.findViewById(R.id.theme_img);
         TextView name = convertView.findViewById(R.id.theme_name);
         TextView difficult = convertView.findViewById(R.id.difficult);
-        TextView category = convertView.findViewById(R.id.category);
-        TextView person = convertView.findViewById(R.id.person);
+        TextView genre = convertView.findViewById(R.id.category);
 
-        imageView.setImageResource(items.get(position).getThemeImg());
-        name.setText(items.get(position).getThemeName());
-        difficult.setText(items.get(position).getDifficult());
-        category.setText(items.get(position).getCategory());
-        person.setText(items.get(position).getPerson());
+        Glide.with(context)
+                .load(items.get(position).getImg())
+                .into(imageView);
+        name.setText(items.get(position).getName());
+        difficult.setText(String.valueOf(items.get(position).getDifficulty()));
+        genre.setText(items.get(position).getGenre());
         return convertView;
     }
 }

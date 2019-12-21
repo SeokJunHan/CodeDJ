@@ -19,6 +19,7 @@
             android:id="@+id/theme_img"
             android:layout_width="match_parent"
             android:layout_height="130dp"
+            android:scaleType="fitXY"
             tools:srcCompat="@tools:sample/avatars" />
 
         <LinearLayout
@@ -38,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textAlignment="textEnd" />
+                android:gravity="right"/>
         </LinearLayout>
 
         <LinearLayout
@@ -55,6 +56,8 @@
 
             <TextView
                 android:id="@+id/person"
+                android:gravity="right"
+                android:text="2인 ~ 4인"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />

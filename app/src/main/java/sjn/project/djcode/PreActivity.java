@@ -25,15 +25,6 @@ public class PreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pre);
 
-        ImageView imageView = findViewById(R.id.key_image);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
-
         FirebaseApp.initializeApp(this);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -41,11 +32,16 @@ public class PreActivity extends AppCompatActivity {
         branch.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                LoadedData.Branches.clear();
                 for(DataSnapshot item : dataSnapshot.getChildren()) {
                     Branch branch = item.getValue(Branch.class);
                     LoadedData.Branches.add(branch);
                 }
                 Toast.makeText(getApplicationContext(), "지점 로드 완료.", Toast.LENGTH_LONG).show();
+                finish();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.anim_zoom_in_show, R.anim.anim_zoom_in_hide);
             }
 
             @Override
