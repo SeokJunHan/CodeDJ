@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="360dp"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="12dip">
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_weight="10"
+        android:columnCount="2">
+
+        <TextView
+            android:layout_marginRight="5dp"
+            android:text="이름"
+            android:textColor="@color/black"
+            android:layout_gravity="right"
+            android:textSize="12dp" />
+
+        <EditText
+            android:id="@+id/reservation_input_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:hint="이름을 입력해주세요." />
+
+        <TextView
+            android:layout_marginRight="5dp"
+            android:text="전화번호"
+            android:textColor="@color/black"
+            android:textSize="12dp" />
+
+        <EditText
+            android:id="@+id/reservation_input_tel_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:hint="전화번호를 입력해주세요."
+            android:inputType="phone"/>
+
+    </GridLayout>
+
+
+    <Button
+        android:layout_marginHorizontal="10dp"
+        android:id="@+id/reservation_input_btn"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:background="@color/orange"
+        android:text="입력"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+</LinearLayout>

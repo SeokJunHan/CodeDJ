@@ -39,8 +39,6 @@ public class HomeFragment extends Fragment {
                 fragmentTransaction.hide(HomeFragment.this);
                 fragmentTransaction.add(R.id.nav_host_fragment, themeFragment);
                 fragmentTransaction.commit();
-
-                Toast.makeText(root.getContext(), position+"", Toast.LENGTH_LONG).show();
             }
         });
 

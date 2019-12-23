@@ -1,6 +1,8 @@
 package sjn.project.djcode.value_objects;
 
-public class Reservation {
+import java.io.Serializable;
+
+public class Reservation implements Serializable {
     String name;
     String tel_no;
 
