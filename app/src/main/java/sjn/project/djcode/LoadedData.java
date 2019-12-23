@@ -10,6 +10,7 @@ public class LoadedData {
 
     public static List<Branch> Branches = new ArrayList<>();
     public static List<Theme> Themes = new ArrayList<>();
+    public static List<Theme> WholeThemes = new ArrayList<>();
 
     public static String ChatID;
 

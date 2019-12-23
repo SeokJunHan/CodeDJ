@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="25dp"
+    >
+
+    <EditText
+        android:id="@+id/review_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:hint="Title"
+        android:layout_marginBottom="15dp"
+        android:textColor="@color/black"/>
+
+    <LinearLayout
+        android:layout_marginVertical="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:paddingLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:layout_weight="0.2"
+            android:text="평점 "
+            />
+
+        <RatingBar
+            android:id="@+id/write_review_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="false"
+            android:numStars="5"
+            style="@style/Widget.AppCompat.RatingBar.Indicator"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginVertical="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:paddingLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:layout_weight="0.2"
+            android:text="체감 난이도 "
+            />
+        <RatingBar
+            android:id="@+id/write_review_difficulty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="false"
+            android:numStars="5"
+            style="@style/Widget.AppCompat.RatingBar.Indicator"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginVertical="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:paddingLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:layout_weight="0.2"
+            android:text="공포도 "
+            />
+        <RatingBar
+            android:id="@+id/write_review_scary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="false"
+            android:numStars="5"
+            style="@style/Widget.AppCompat.RatingBar.Indicator"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginVertical="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:paddingLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:layout_weight="0.2"
+            android:text="활동성 "
+            />
+        <RatingBar
+            android:id="@+id/write_review_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="false"
+            android:numStars="5"
+            style="@style/Widget.AppCompat.RatingBar.Indicator"
+            />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/review_content"
+        android:layout_width="match_parent"
+        android:layout_height="800px"
+        android:layout_marginTop="15dp"
+        android:hint="Content of review..."
+        android:textSize="18dp" />
+
+    <Button
+        android:id="@+id/write_review_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:background="@color/orange"
+        android:text="작성"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        />
+
+</LinearLayout>

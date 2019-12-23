@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import sjn.project.djcode.value_objects.Branch;
+import sjn.project.djcode.value_objects.Theme;
 
 public class PreActivity extends AppCompatActivity {
 
@@ -31,11 +32,30 @@ public class PreActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 LoadedData.Branches.clear();
+                LoadedData.WholeThemes.clear();
+
                 for(DataSnapshot item : dataSnapshot.getChildren()) {
+
                     Branch branch = item.getValue(Branch.class);
                     LoadedData.Branches.add(branch);
+
+                    database.getReference("theme").child(branch.getName()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                                Theme theme = ds.getValue(Theme.class);
+                                LoadedData.WholeThemes.add(theme);
+                                System.out.println(theme.getName());
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                 }
-                Toast.makeText(getApplicationContext(), "지점 로드 완료.", Toast.LENGTH_LONG).show();
+
                 finish();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);

@@ -9,14 +9,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bumptech.glide.Glide;
 
 import sjn.project.djcode.LoadedData;
 import sjn.project.djcode.R;
+import sjn.project.djcode.fragments.chatting.ChattingFragment;
 import sjn.project.djcode.value_objects.Theme;
 
 public class ChatInputIdDialog extends Activity {
-
+    private EditText userid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,13 +27,15 @@ public class ChatInputIdDialog extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_chat_input_id);
 
+        userid = (EditText) findViewById(R.id.chat_input_id);
+
         Button button = findViewById(R.id.chat_input_btn);
         button.setOnClickListener( listener -> {
-            EditText editText = findViewById(R.id.chat_input_id);
-            String id = editText.getText().toString();
+            String id = userid.getText().toString();
             LoadedData.ChatID = id;
-            finish();
-            System.out.println("ID : " + LoadedData.ChatID);
+            Intent intent = new Intent(ChatInputIdDialog.this, ChattingFragment.class);
+            intent.putExtra("chatId", userid.getText().toString());
+            startActivity(intent);
         });
     }
 }

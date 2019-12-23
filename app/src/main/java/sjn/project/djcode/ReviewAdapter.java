@@ -8,14 +8,15 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.HashMap;
+import java.util.List;
 
-import sjn.project.djcode.value_objects.Reviews;
+import sjn.project.djcode.value_objects.Review;
 
-public class ReviewAdapter extends ArrayAdapter<HashMap<Integer, Reviews>> {
-    private HashMap<Integer, Reviews> items;
+public class ReviewAdapter extends ArrayAdapter<HashMap<Integer, Review>> {
+    private List<Review> items;
     Context context;
 
-    public ReviewAdapter(Context context, int resource, HashMap<Integer, Reviews> objects){
+    public ReviewAdapter(Context context, int resource, List<Review> objects){
         super(context, resource);
         items = objects;
         this.context = context;
@@ -27,10 +28,10 @@ public class ReviewAdapter extends ArrayAdapter<HashMap<Integer, Reviews>> {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.review_listview, null, true);
 
-        TextView title = convertView.findViewById(R.id.titles);
-        TextView content = convertView.findViewById(R.id.content);
+        TextView title = convertView.findViewById(R.id.review_list_title);
+        TextView content = convertView.findViewById(R.id.review_list_content);
 
-        title.setText(items.get(position).getContent());
+        title.setText(" [ " + items.get(position).getTheme() + " ] " + items.get(position).getContent());
         content.setText(items.get(position).getTitle());
 
         return convertView;
