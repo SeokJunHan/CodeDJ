@@ -1,6 +1,8 @@
-package sjn.project.djcode;
+package sjn.project.djcode.value_objects;
 
-public class Theme {
+import java.io.Serializable;
+
+public class Theme implements Serializable {
     private String img;
     private String name;
     private String genre;

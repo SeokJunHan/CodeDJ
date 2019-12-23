@@ -1,4 +1,4 @@
-package sjn.project.djcode;
+package sjn.project.djcode.value_objects;
 
 public class Branch {
     private String img;

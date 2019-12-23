@@ -13,6 +13,8 @@ import com.bumptech.glide.Glide;
 import java.util.HashMap;
 import java.util.List;
 
+import sjn.project.djcode.value_objects.Theme;
+
 public class ThemeAdapter extends ArrayAdapter<HashMap<Integer, Theme>> {
     private List<Theme> items;
     Context context;

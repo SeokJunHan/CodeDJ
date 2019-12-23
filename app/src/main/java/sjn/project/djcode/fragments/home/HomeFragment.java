@@ -1,4 +1,4 @@
-package sjn.project.djcode.ui.home;
+package sjn.project.djcode.fragments.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

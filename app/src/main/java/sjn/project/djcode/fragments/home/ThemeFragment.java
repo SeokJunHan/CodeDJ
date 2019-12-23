@@ -1,13 +1,12 @@
-package sjn.project.djcode.ui.home;
+package sjn.project.djcode.fragments.home;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,12 +16,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import sjn.project.djcode.BranchAdapter;
 import sjn.project.djcode.LoadedData;
 import sjn.project.djcode.R;
-import sjn.project.djcode.Theme;
+import sjn.project.djcode.dialog.ThemeDialog;
+import sjn.project.djcode.value_objects.Theme;
 import sjn.project.djcode.ThemeAdapter;
 
 public class ThemeFragment extends Fragment {
@@ -45,17 +42,20 @@ public class ThemeFragment extends Fragment {
                 LoadedData.Themes.clear();
                 for(DataSnapshot item : dataSnapshot.getChildren()) {
                     Theme theme = item.getValue(Theme.class);
-                    System.out.println(theme.getName());
                     LoadedData.Themes.add(theme);
                 }
 
+                //TDOO 로드 완료까지 대기.
                 final ListView listView = root.findViewById(R.id.theme_list);
                 ThemeAdapter adapter = new ThemeAdapter(root.getContext(), R.id.point_img , LoadedData.Themes);
                 listView.setAdapter(adapter);
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Toast.makeText(root.getContext(), position+"", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(root.getContext(), ThemeDialog.class);
+                        Theme item = LoadedData.Themes.get(position);
+                        intent.putExtra("theme", item);
+                        startActivity(intent);
                     }
                 });
             }
