@@ -122,8 +122,6 @@ public class WriteReviewFragment extends Fragment {
                         if(ReviewFragment.reviewFragment != null)
                         fragmentTransaction.show(ReviewFragment.reviewFragment);
                         fragmentTransaction.commit();
-
-                        //TODO List 갱신
                     }
 
                     @Override

@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <ListView
         android:id="@+id/chat_message"
         android:layout_width="match_parent"
-        android:layout_height="635dp"
-        android:paddingBottom="20dp">
-
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:paddingBottom="50dp">
+    </ListView>
 
 
     <LinearLayout
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -26,12 +25,13 @@
             android:id="@+id/chat_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:hint="메시지 입력"
             android:layout_weight="3"
             android:imeOptions="actionSend"
             android:inputType="text" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/chat_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="보내기" />
@@ -39,4 +39,4 @@
     </LinearLayout>
 
 
-</LinearLayout>
+</RelativeLayout>

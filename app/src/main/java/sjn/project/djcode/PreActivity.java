@@ -45,7 +45,6 @@ public class PreActivity extends AppCompatActivity {
                             for(DataSnapshot ds : dataSnapshot.getChildren()) {
                                 Theme theme = ds.getValue(Theme.class);
                                 LoadedData.WholeThemes.add(theme);
-                                System.out.println(theme.getName());
                             }
                         }
 

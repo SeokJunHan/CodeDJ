@@ -3,6 +3,7 @@ package sjn.project.djcode.fragments.review;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +11,16 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +29,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import sjn.project.djcode.BusProvider;
 import sjn.project.djcode.LoadedData;
 import sjn.project.djcode.R;
 import sjn.project.djcode.ReviewAdapter;
+import sjn.project.djcode.SendDataEvent;
 import sjn.project.djcode.dialog.ReviewSearchDialog;
 import sjn.project.djcode.fragments.home.HomeFragment;
 import sjn.project.djcode.fragments.home.ThemeFragment;
@@ -64,6 +70,9 @@ public class ReviewFragment extends Fragment {
 
         database = FirebaseDatabase.getInstance();
 
+        // 이벤트 수신 객체 등록
+        BusProvider.getInstance().register(this);
+
         fabMain.setOnClickListener(e -> {
             toggleFab();
         });
@@ -91,16 +100,54 @@ public class ReviewFragment extends Fragment {
         return root;
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    @Subscribe
+    public void Search(SendDataEvent data) {
 
-        // 검색
-        if(resultCode == 5555) {
-            String keyword = data.getStringExtra("search");
-            System.out.println(keyword);
-        }
-        else System.out.println("ㅋㅋ");
+        String keyword = data.getData();
+
+        DatabaseReference review = database.getReference("review");
+
+        Query query = review.orderByChild("title").startAt(keyword).endAt(keyword);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                reviewList.clear();
+
+                for(DataSnapshot item : dataSnapshot.getChildren()) {
+                    Review review = item.getValue(Review.class);
+                    reviewList.add(review);
+                }
+
+                ReviewAdapter reviewAdapter = new ReviewAdapter(mContext, R.layout.review_listview, reviewList);
+                listView.setAdapter(reviewAdapter);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Bundle args = new Bundle();
+                        args.putSerializable("review", reviewList.get(position));
+                        FragmentManager fragmentManager = getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        ReadReviewFragment readReviewFragment = new ReadReviewFragment();
+                        readReviewFragment.setArguments(args);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.hide(ReviewFragment.this);
+                        fragmentTransaction.add(R.id.nav_host_fragment, readReviewFragment);
+                        fragmentTransaction.commit();
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        BusProvider.getInstance().unregister(this);
     }
 
     private void LoadReviews() {

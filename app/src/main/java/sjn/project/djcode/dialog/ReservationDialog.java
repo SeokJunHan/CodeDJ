@@ -100,8 +100,7 @@ public class ReservationDialog extends Activity {
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
             Calendar cal2 = Calendar.getInstance();
             cal2.set(year, month-1, dayOfMonth);
-            //TODO 반대로.
-            if(calendar.compareTo(cal2) != -1) {
+            if(calendar.compareTo(cal2) == -1) {
                 Toast.makeText(getApplicationContext(), "이전 날짜는 선택할 수 없습니다.", Toast.LENGTH_LONG).show();
                 return;
             }
