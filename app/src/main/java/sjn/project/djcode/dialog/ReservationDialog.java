@@ -1,18 +1,15 @@
 package sjn.project.djcode.dialog;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.Sampler;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.GridLayout;
-import android.widget.ImageView;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,7 +20,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import sjn.project.djcode.R;
 import sjn.project.djcode.value_objects.Reservation;
 import sjn.project.djcode.value_objects.Theme;
@@ -33,8 +29,12 @@ public class ReservationDialog extends Activity {
     final int RESULT_OK = 5252; // 예약 다이얼로그로부터 응답을 받음.
 
     String date;
-    TextView title, genre, difficulty;
+    TextView title, genre, difficulty, dateText;
     Button btn_cancel;
+
+    // 날짜 선택 변수
+    Calendar calendar;
+    SimpleDateFormat sdf;
 
     String[] times = {"10:20", "11:30", "12:40", "13:50", "15:00", "16:10",
             "17:20", "18:30", "19:40", "20:50", "22:00", "23:10"};
@@ -58,18 +58,33 @@ public class ReservationDialog extends Activity {
         setContentView(R.layout.dialog_reservation);
 
         theme = (Theme) getIntent().getSerializableExtra("theme");
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        calendar = Calendar.getInstance();
+        sdf = new SimpleDateFormat("yyyy-MM-dd");
         date = sdf.format(calendar.getTime());
 
         title = findViewById(R.id.reservation_title);
         genre = findViewById(R.id.reservation_genre);
         difficulty = findViewById(R.id.reservation_difficulty);
         btn_cancel = findViewById(R.id.reservation_cancel);
+        dateText = findViewById(R.id.reservation_date);
+
+        dateText.setOnClickListener(e->{
+            String[] date_string = dateText.getText().toString().split("-");
+            int year = Integer.parseInt(date_string[0]);
+            int month = Integer.parseInt(date_string[1]);
+            int date = Integer.parseInt(date_string[2]);
+            DatePickerDialog dialog = new DatePickerDialog(this, dp_listener, year, month-1, date);
+            dialog.show();
+        });
 
         title.setText(theme.getName());
         genre.setText(theme.getGenre());
-        difficulty.setText(String.valueOf(theme.getDifficulty()));
+        // 소수점 제거
+        if(theme.getDifficulty() == (long)theme.getDifficulty()) {
+            long difficulty_l = (long)theme.getDifficulty();
+            difficulty.setText("난이도 : " + difficulty_l);
+        }
+        else difficulty.setText("난이도 : " + theme.getDifficulty());
 
         database = FirebaseDatabase.getInstance();
         dataref = database.getReference("reservation").child(theme.getName());
@@ -80,8 +95,25 @@ public class ReservationDialog extends Activity {
         LoadReservationData();
     }
 
+    private DatePickerDialog.OnDateSetListener dp_listener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            Calendar cal2 = Calendar.getInstance();
+            cal2.set(year, month-1, dayOfMonth);
+            //TODO 반대로.
+            if(calendar.compareTo(cal2) != -1) {
+                Toast.makeText(getApplicationContext(), "이전 날짜는 선택할 수 없습니다.", Toast.LENGTH_LONG).show();
+                return;
+            }
+            calendar.set(year, month, dayOfMonth);
+            date = sdf.format(calendar.getTime());
+            LoadReservationData();
+        }
+    };
+
     private void LoadReservationData() {
 
+        dateText.setText(date);
         dataref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

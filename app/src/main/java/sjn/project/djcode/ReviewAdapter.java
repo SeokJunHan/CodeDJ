@@ -30,9 +30,11 @@ public class ReviewAdapter extends ArrayAdapter<HashMap<Integer, Review>> {
 
         TextView title = convertView.findViewById(R.id.review_list_title);
         TextView content = convertView.findViewById(R.id.review_list_content);
+        TextView date = convertView.findViewById(R.id.review_list_date);
 
-        title.setText(" [ " + items.get(position).getTheme() + " ] " + items.get(position).getContent());
-        content.setText(items.get(position).getTitle());
+        title.setText(" [ " + items.get(position).getTheme() + " ] " + items.get(position).getTitle());
+        content.setText(items.get(position).getContent());
+        date.setText(items.get(position).getId());
 
         return convertView;
     }

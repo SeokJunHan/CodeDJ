@@ -1,14 +1,17 @@
 package sjn.project.djcode;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import sjn.project.djcode.fragments.review.ReviewFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +28,13 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        System.out.println(requestCode + " " + resultCode + " ");
+        if(resultCode == 5555)
+            ReviewFragment.reviewFragment.onActivityResult(requestCode, resultCode, data);
     }
 
 }

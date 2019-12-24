@@ -1,12 +1,14 @@
 package sjn.project.djcode.fragments.review;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -23,8 +25,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import sjn.project.djcode.LoadedData;
 import sjn.project.djcode.R;
 import sjn.project.djcode.ReviewAdapter;
+import sjn.project.djcode.dialog.ReviewSearchDialog;
 import sjn.project.djcode.fragments.home.HomeFragment;
 import sjn.project.djcode.fragments.home.ThemeFragment;
 import sjn.project.djcode.value_objects.Review;
@@ -36,6 +40,8 @@ public class ReviewFragment extends Fragment {
     private Animation fabOpen, fabClose;
     private boolean isFabOpen = false;
 
+    public static ReviewFragment reviewFragment;
+
     FirebaseDatabase database;
     List<Review> reviewList = new ArrayList<>();
     ListView listView;
@@ -45,6 +51,7 @@ public class ReviewFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_review, container, false);
         mContext = root.getContext();
+        reviewFragment = ReviewFragment.this;
 
         fabOpen = AnimationUtils.loadAnimation(root.getContext(), R.anim.fab_open);
         fabClose = AnimationUtils.loadAnimation(root.getContext(), R.anim.fab_close);
@@ -61,32 +68,49 @@ public class ReviewFragment extends Fragment {
             toggleFab();
         });
 
+        // 검색
         fabSub1.setOnClickListener(e -> {
+            Intent intent = new Intent(root.getContext(), ReviewSearchDialog.class);
+            startActivity(intent);
+            toggleFab();
+        });
+
+        // 글 작성
+        fabSub2.setOnClickListener(e -> {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             WriteReviewFragment writeReviewFragment = new WriteReviewFragment();
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.hide(ReviewFragment.this);
+            if(!writeReviewFragment.isAdded())
             fragmentTransaction.add(R.id.nav_host_fragment, writeReviewFragment);
             fragmentTransaction.commit();
-        });
-
-        fabSub2.setOnClickListener(e -> {
-            toggleFab();
-            // 검색
         });
 
         LoadReviews();
         return root;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // 검색
+        if(resultCode == 5555) {
+            String keyword = data.getStringExtra("search");
+            System.out.println(keyword);
+        }
+        else System.out.println("ㅋㅋ");
+    }
+
     private void LoadReviews() {
         DatabaseReference review = database.getReference("review");
-        reviewList.clear();
 
         review.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                reviewList.clear();
+
                 for(DataSnapshot item : dataSnapshot.getChildren()) {
                     Review review = item.getValue(Review.class);
                     reviewList.add(review);
@@ -94,6 +118,21 @@ public class ReviewFragment extends Fragment {
 
                 ReviewAdapter reviewAdapter = new ReviewAdapter(mContext, R.layout.review_listview, reviewList);
                 listView.setAdapter(reviewAdapter);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Bundle args = new Bundle();
+                        args.putSerializable("review", reviewList.get(position));
+                        FragmentManager fragmentManager = getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        ReadReviewFragment readReviewFragment = new ReadReviewFragment();
+                        readReviewFragment.setArguments(args);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.hide(ReviewFragment.this);
+                        fragmentTransaction.add(R.id.nav_host_fragment, readReviewFragment);
+                        fragmentTransaction.commit();
+                    }
+                });
             }
 
             @Override

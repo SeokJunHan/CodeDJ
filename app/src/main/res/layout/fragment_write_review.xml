@@ -3,15 +3,48 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="25dp"
     >
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="25dp"
+        android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_marginVertical="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:layout_weight="0.2"
+            android:text="테마 "
+            />
+
+        <Spinner
+            android:id="@+id/write_review_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
     <EditText
-        android:id="@+id/review_title"
+        android:id="@+id/write_review_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18dp"
-        android:hint="Title"
+        android:hint="글 제목"
         android:layout_marginBottom="15dp"
         android:textColor="@color/black"/>
 
@@ -37,6 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:isIndicator="false"
+            android:stepSize="1"
             android:numStars="5"
             style="@style/Widget.AppCompat.RatingBar.Indicator"
             />
@@ -64,6 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:isIndicator="false"
+            android:stepSize="1"
             android:numStars="5"
             style="@style/Widget.AppCompat.RatingBar.Indicator"
             />
@@ -91,6 +126,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:isIndicator="false"
+            android:stepSize="1"
             android:numStars="5"
             style="@style/Widget.AppCompat.RatingBar.Indicator"
             />
@@ -118,6 +154,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:isIndicator="false"
+            android:stepSize="1"
             android:numStars="5"
             style="@style/Widget.AppCompat.RatingBar.Indicator"
             />
@@ -125,11 +162,11 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/review_content"
+        android:id="@+id/write_review_content"
         android:layout_width="match_parent"
         android:layout_height="800px"
         android:layout_marginTop="15dp"
-        android:hint="Content of review..."
+        android:hint="글 내용"
         android:textSize="18dp" />
 
     <Button
@@ -137,6 +174,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:layout_marginBottom="100dp"
         android:layout_gravity="center"
         android:background="@color/orange"
         android:text="작성"
@@ -144,5 +182,9 @@
         android:textColor="@color/white"
         android:textSize="18dp"
         />
+
+    </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

@@ -30,6 +30,8 @@
             android:theme="@android:style/Theme.Dialog"/>
         <activity android:name=".dialog.ReservationInputDialog"
             android:theme="@android:style/Theme.Dialog"/>
+        <activity android:name=".dialog.ReviewSearchDialog"
+            android:theme="@android:style/Theme.Dialog"/>
     </application>
 
 </manifest>
